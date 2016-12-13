@@ -32,6 +32,32 @@
 		]]>
 	</insert>
 	
+	<insert id="insertPicFile" parameterType="hashmap" >
+	<selectKey keyProperty="PIC_IDX" resultType="String" order="BEFORE">
+			SELECT SEQ_PIC_FILE_IDX.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+			INSERT INTO PIC_FILE
+			(
+				PIC_IDX,
+				ORIGINAL_FILE_NAME,
+				STORED_FILE_NAME,
+				PIC_FILE_SIZE,
+				MEMBER_IDX
+				
+			)
+			VALUES
+			(
+				#{PIC_IDX},
+				#{ORIGINAL_FILE_NAME},
+				#{STORED_FILE_NAME},
+				#{FILE_SIZE},
+				#{MEMBER_IDX}
+				
+			)
+		]]>
+	</insert>
+	
 	<select id="loginIdentify" resultType="int" parameterType="String" >
 		<![CDATA[
  			SELECT MEMBER_IDX

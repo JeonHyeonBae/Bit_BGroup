@@ -36,6 +36,33 @@
 		]]>
 	</select>
 	
+	<select id="selectMyInfo" resultType="HashMap" parameterType="hashmap">
+		SELECT
+			MEMBER_NAME,
+			MEMBER_NICK,
+			MEMBER_ADDR
+		FROM MEMBER
+		WHERE MEMBER_IDX = #{MEMBER_IDX}
+		
+	</select>
+		
+	<select id="selecProfilePic" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+		SELECT
+			*
+		FROM  PIC_FILE
+		WHERE  MEMBER_IDX=#{MEMBER_IDX}	
+			]]>
+	</select>
+
+	 <select id="selectRidePicList" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+		SELECT * 
+		FROM RIDE_PIC_FILE
+		WHERE MEMBER_IDX=#{MEMBER_IDX}
+	]]>
+	</select> 
+	
 	<select id="selectFriendDetail" resultType="HashMap" parameterType="HashMap">
 		<![CDATA[
 			SELECT

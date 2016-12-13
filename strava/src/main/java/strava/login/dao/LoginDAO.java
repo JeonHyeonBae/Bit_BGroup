@@ -27,6 +27,9 @@ public class LoginDAO extends AbstractDAO {
 		insert("login.insertMember", map);
 	}
 	
+	public void insertPicFile(Map<String, Object> map) throws Exception{
+		insert("login.insertPicFile",map);
+	}
 	public int loginIdentify(Map<String, Object> map) {
 		return (int)selectOne("login.loginIdentify", map);
 	}

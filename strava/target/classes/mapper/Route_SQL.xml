@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="route">
+	<select id = "selectAllRouteList" parameterType="HashMap" resultType="HashMap">
+		<![CDATA[
+	select
+		ride_idx, ride_title,
+		to_char(ride_date, 'YYYY-MM-DD') as ride_date,
+		ride_duration, ride_distance, ride_elevation
+		from ride_record
+		order by ride_idx desc
+	   ]]>
+	</select>
+		     
+    <select id = "selectMyRouteList" parameterType = "HashMap" resultType="HashMap">
+		<![CDATA[
+		select
+			ride_idx, ride_title,
+			to_char(ride_date, 'YYYY-MM-DD') as ride_date,
+			ride_duration, ride_distance, ride_elevation
+		from ride_record
+		where member_idx = 61
+		order by ride_idx desc
+	  ]]>
+	</select>
+	
+	<insert id="uploadRoute" parameterType="HashMap" useGeneratedKeys="true" keyProperty="RIDE_IDX">
+		<selectKey keyProperty="RIDE_IDX" resultType="String" order="BEFORE">
+			select seq_ride_record_idx.nextval from dual
+		</selectKey>
+		<![CDATA[
+			insert into ride_record	(
+				ride_idx,
+				ride_title,
+				ride_content,
+				ride_date,
+				member_idx)
+			values(
+				#{RIDE_IDX},
+				#{RIDE_TITLE},
+				#{RIDE_CONTENT},
+				to_char(sysdate, 'YYYY-MM-DD'),
+				61
+			)
+				
+		]]>
+	</insert>
+		
+	<select id = "openRouteDetail" parameterType="HashMap" resultType="HashMap">
+		<![CDATA[
+			select
+				ride_idx,
+				ride_title,
+				ride_content,
+				to_char(sysdate, 'YYYY-MM-DD') as ride_date,
+				ride_duration,
+				ride_distance,
+				ride_elevation
+			from ride_record
+			where ride_idx = #{RIDE_IDX}			
+		]]>
+	</select>
+	
+	<update id = "updateMyRoute" parameterType="HashMap">
+		<![CDATA[
+			update ride_record
+				set
+					ride_title = #{RIDE_TITLE},
+					ride_content = #{RIDE_CONTENT}
+			where ride_idx = #{RIDE_IDX}			
+		]]>
+	</update>
+	
+	<delete id = "deleteMyRoute" parameterType="HashMap">
+		<![CDATA[
+			delete from ride_record
+			cascade
+			where ride_idx = #{RIDE_IDX}
+						
+		]]>
+	</delete>
+	
+	<insert id="insertFile" parameterType = "HashMap">
+		<![CDATA[
+			insert into ride_record_file
+			(
+				ride_record_file_idx,
+				ride_idx,
+				original_file_name,
+				stored_file_name,
+				file_size,
+				file_date,
+				member_idx
+			)
+			values
+			(
+				seq_ride_record_file_idx.nextval,
+				#{RIDE_IDX},
+				#{ORIGINAL_FILE_NAME},
+				#{STORED_FILE_NAME},
+				#{FILE_SIZE},
+				to_char(sysdate, 'YYYY-MM-DD'),
+				61
+			)
+		]]>	
+	</insert>
+	
+	<select id = "selectFileList" parameterType="HashMap" resultType="HashMap">
+		<![CDATA[
+			select 
+				ride_record_file_idx,
+				original_file_name,
+				round(file_size/1024,1) as file_size
+			from
+				ride_record_file
+			where
+				ride_idx = #{RIDE_IDX}							
+		]]>
+	</select>
+	
+</mapper>

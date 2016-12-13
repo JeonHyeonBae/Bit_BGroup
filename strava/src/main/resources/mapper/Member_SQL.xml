@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	
+	<select id="selectMember" resultType="HashMap" parameterType="int">
+		<![CDATA[
+			SELECT *
+			FROM MEMBER
+			WHERE MEMBER_IDX = #{MEMBER_IDX}
+		]]>
+	</select>
+	
+	<!-- 특정  MEMBER_IDX의 친구 목록을 불러오는 쿼리 -->
+	<select id="selectFriendList" resultType="HashMap" parameterType="int">
+		<![CDATA[
+			SELECT
+				M.MEMBER_IDX,
+				M.MEMBER_NICK,
+				M.MEMBER_ADDR,
+				P.STORED_FILE_NAME
+			FROM MEMBER M, PIC_FILE P
+			WHERE (M.MEMBER_IDX IN ((SELECT
+				MEMBER_IDX2 AS MEMBER_IDX
+			FROM FRIEND_LIST
+			WHERE (MEMBER_IDX1 = #{MEMBER_IDX}
+			AND DELETE_CHECK = 1))
+			UNION
+			(SELECT
+				MEMBER_IDX1
+			FROM FRIEND_LIST
+			WHERE MEMBER_IDX2 = #{MEMBER_IDX}
+			AND DELETE_CHECK = 1)))
+				AND
+				M.MEMBER_IDX = P.MEMBER_IDX
+		]]>
+	</select>
+	
+	<select id="selectFriendDetail" resultType="HashMap" parameterType="HashMap">
+		<![CDATA[
+			SELECT
+				MEMBER_NAME,
+				MEMBER_NICK,
+				MEMBER_EMAIL,
+				MEMBER_TEL,
+				MEMBER_ADDR,
+				MEMBER_PROF_IMG
+			FROM MEMBER
+			WHERE MEMBER_IDX = #{FRIEND_IDX}
+		]]>
+	</select>
+	
+</mapper>

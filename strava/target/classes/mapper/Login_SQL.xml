@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="login">
+	<insert id="insertMember" parameterType="HashMap" useGeneratedKeys="true" keyProperty="MEMBER_IDX">
+		<selectKey keyProperty="MEMBER_IDX" resultType="String" order="BEFORE">
+			SELECT SEQ_MEMBER_IDX.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+			INSERT INTO MEMBER (
+				MEMBER_IDX,
+				MEMBER_NAME,
+				MEMBER_ID,
+				MEMBER_PASSWORD,
+				MEMBER_NICK,
+				MEMBER_EMAIL,
+				MEMBER_TEL,
+				MEMBER_ADDR,
+				MEMBER_PROF_IMG,
+				MEMBER_EXTRA_IDX) 
+			values (
+				#{MEMBER_IDX},
+				#{MEMBER_NAME},
+				#{MEMBER_ID},
+				#{MEMBER_PASSWORD},
+				#{MEMBER_NICK},
+				#{MEMBER_EMAIL},
+				#{MEMBER_TEL},
+				#{MEMBER_ADDR},
+				#{MEMBER_PROF_IMG},
+				#{MEMBER_EXTRA_IDX})
+		]]>
+	</insert>
+	
+	<select id="loginIdentify" resultType="int" parameterType="String" >
+		<![CDATA[
+ 			SELECT MEMBER_IDX
+			FROM MEMBER
+			WHERE MEMBER_ID = #{MEMBER_ID}
+			AND MEMBER_PASSWORD = #{MEMBER_PASSWORD}
+ 		]]>
+	</select>
+	
+	<select id="idOverlapCheck" resultType="String" parameterType="String" >
+		<![CDATA[
+ 			SELECT MEMBER_ID
+			FROM MEMBER
+			WHERE MEMBER_ID = #{MEMBER_ID}
+ 		]]>
+	</select>
+	
+	<select id="nickOverlapCheck" resultType="String" parameterType="String" >
+		<![CDATA[
+ 			SELECT MEMBER_NICK
+			FROM MEMBER
+			WHERE MEMBER_NICK = #{MEMBER_NICK}
+ 		]]>
+	</select>
+	
+</mapper>

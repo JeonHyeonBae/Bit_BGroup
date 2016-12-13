@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace = "file">
+ 	<select id="selectFileInfo" parameterType="HashMap" resultType="HashMap">
+ 		<![CDATA[
+ 		select 
+ 			stored_file_name,
+ 			original_file_name
+ 		from
+ 			ride_record_file
+ 		where
+ 			ride_record_file_idx = #{RIDE_RECORD_FILE_IDX}
+ 		]]>
+ 	</select>
+ </mapper>

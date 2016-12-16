@@ -14,6 +14,7 @@
 	<a href = "/strava/route/map/openMap.do">기본 지도 화면</a><br/>
 	<a href = "/strava/route/openAllRouteList.do">DB 저장 전체 경로 목록화면</a><br/>
 	<a href = "/strava/route/openMyRouteList.do">특정 아이디 경로 전체 목록</a><br/>
-	<a href = "/strava/androidtest.jsp">안드로이드 테스트</a>
+	<a href = "/strava/androidtest.jsp">안드로이드 테스트</a><br/>
+	<a href = "/strava/member/memberprofile.do">개인 프로필</a>
 </body>
 </html>

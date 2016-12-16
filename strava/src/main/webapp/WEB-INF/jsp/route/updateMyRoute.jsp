@@ -18,11 +18,9 @@
             <caption>내 경로 수정</caption>
             <tbody>
             	<tr>
-            		<th>제목</th>
-            		 <td colspan="3">
-                        <input type="text" id="TITLE" name="TITLE" value="${map.RIDE_TITLE}"/>
-                     </td>
-            	</tr>
+                  <th>제목</th>
+                  <td><input type = "text" id = "RIDE_TITLE" name = "RIDE_TITLE"></input></td>
+               </tr>
             	<tr>
             		<th>설명</th>
             		<td colspan="2">

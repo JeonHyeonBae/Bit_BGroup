@@ -34,6 +34,7 @@ public class LoginServiceImpl implements LoginService {
 			loginDAO.insertPicFile(list.get(i));
 		}
 		
+		
 	}
 
 	@Override

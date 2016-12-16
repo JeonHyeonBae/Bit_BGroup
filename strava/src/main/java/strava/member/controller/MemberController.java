@@ -42,30 +42,30 @@ public class MemberController {
 		
 		List <Map<String, Object>> list = memberService.selectFriendList(commandMap.getMap());
 		
-//		// 1.웹사이트의 photo 폴더의 경로를 알아냄
-//		String photoPath = context.getRealPath("/photo");
-//		// 2. 1의 폴더에 대한 정보를 알아내는 File 객체 생성
-//		File photoDirectory = new File(photoPath);
-//		
-//		File originalPicture = null;
-//		File copyPicture = null;
-//		
-//		// 3.해당 폴더가 존재 하지 않으면 (exists()==false)
-//		if (photoDirectory.exists() == false) {
-//			// 해당 폴더를 생성
-//			photoDirectory.mkdir();
-//		}
-//
-//		for (int i = 0; i < list.size(); i++) {
-//			System.out.println("stored:"+list.get(i).get("STORED_FILE_NAME")+":");
-//			// 4.업로드한 파일의 폴더와 파일명을 저장하는 File객체
-//			originalPicture = new File("C://dev/uploadfiles/" + list.get(i).get("STORED_FILE_NAME"));
-//			// 5. 4의 파일을 복사할 폴더(1의 폴더) 파일명을 저장하고 있는 객체
-//			copyPicture = new File(photoPath + "/" + list.get(i).get("STORED_FILE_NAME"));
-//			
-//			// 6. 4의 파일을 5의 폴더로 복사
-//			FileUtils.copyFile(originalPicture, copyPicture);
-//		}
+		// 1.웹사이트의 photo 폴더의 경로를 알아냄
+		String photoPath = context.getRealPath("/photo");
+		// 2. 1의 폴더에 대한 정보를 알아내는 File 객체 생성
+		File photoDirectory = new File(photoPath);
+		
+		File originalPicture = null;
+		File copyPicture = null;
+		
+		// 3.해당 폴더가 존재 하지 않으면 (exists()==false)
+		if (photoDirectory.exists() == false) {
+			// 해당 폴더를 생성
+			photoDirectory.mkdir();
+		}
+
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println("stored:"+list.get(i).get("STORED_FILE_NAME")+":");
+			// 4.업로드한 파일의 폴더와 파일명을 저장하는 File객체
+			originalPicture = new File("C://dev/uploadfiles/" + list.get(i).get("STORED_FILE_NAME"));
+			// 5. 4의 파일을 복사할 폴더(1의 폴더) 파일명을 저장하고 있는 객체
+			copyPicture = new File(photoPath + "/" + list.get(i).get("STORED_FILE_NAME"));
+			
+			// 6. 4의 파일을 5의 폴더로 복사
+			FileUtils.copyFile(originalPicture, copyPicture);
+		}
 
 		mav.addObject("FRIEND_LIST", list);
 		return mav;
@@ -85,21 +85,21 @@ public class MemberController {
 		Map<String, Object> pmap = memberService.selectMyPic(commandMap.getMap());
 		mav.addObject("MYPIC",pmap);
 //		
-//		//1.웹사이트의 photo 폴더의 경로를 알아냄
-//		String photoPath=context.getRealPath("/photo");
-//		//2. 1의 폴더에 대한 정보를 알아내는 File 객체 생성
-//		File photoDirectory=new File(photoPath);
-//		//3.해당 폴더가 존재 하지 않으면 (exists()==false)
-//		if(photoDirectory.exists()==false){
-//			//해당 폴더를 생성
-//			photoDirectory.mkdir();
-//		}
-//		//4.업로드한 파일의 폴더와 파일명을 저장하는 File객체		
-//		File originalPicture=new File("C:/dev/uploadfiles/"+pmap.get("STORED_FILE_NAME"));
-//		//5. 4의 파일을 복사할 폴더(1의 폴더) 파일명을 저장하고 있는 객체
-//		File copyPicture=new File(photoPath+"/"+pmap.get("STORED_FILE_NAME"));
-//		//6. 4의 파일을 5의 폴더로 복사
-//		FileUtils.copyFile(originalPicture,copyPicture);
+		//1.웹사이트의 photo 폴더의 경로를 알아냄
+		String profilePhotoPath=context.getRealPath("/photo");
+		//2. 1의 폴더에 대한 정보를 알아내는 File 객체 생성
+		File photoDirectory=new File(profilePhotoPath);
+		//3.해당 폴더가 존재 하지 않으면 (exists()==false)
+		if(photoDirectory.exists()==false){
+			//해당 폴더를 생성
+			photoDirectory.mkdir();
+		}
+		//4.업로드한 파일의 폴더와 파일명을 저장하는 File객체		
+		File originalPicture=new File("C:/dev/uploadfiles/"+pmap.get("STORED_FILE_NAME"));
+		//5. 4의 파일을 복사할 폴더(1의 폴더) 파일명을 저장하고 있는 객체
+		File copyPicture=new File(profilePhotoPath+"/"+pmap.get("STORED_FILE_NAME"));
+		//6. 4의 파일을 5의 폴더로 복사
+		FileUtils.copyFile(originalPicture,copyPicture);
 		
 	
 		//주행기록의 사진 불러옴
@@ -108,12 +108,12 @@ public class MemberController {
 		
 		
 		// 1.웹사이트의 photo 폴더의 경로를 알아냄
-				String photoPath = context.getRealPath("/photo");
+				String ridePhotoPath = context.getRealPath("/photo");
 				// 2. 1의 폴더에 대한 정보를 알아내는 File 객체 생성
-				File photoDirectory = new File(photoPath);
+				File photoDirectory2 = new File(ridePhotoPath);
 				
-				File originalPicture = null;
-				File copyPicture = null;
+				File originalPicture2 = null;
+				File copyPicture2 = null;
 				
 				// 3.해당 폴더가 존재 하지 않으면 (exists()==false)
 				if (photoDirectory.exists() == false) {
@@ -124,12 +124,12 @@ public class MemberController {
 				for (int i = 0; i < pmapList.size(); i++) {
 					System.out.println("stored:"+pmapList.get(i).get("STORED_FILE_NAME")+":");
 					// 4.업로드한 파일의 폴더와 파일명을 저장하는 File객체
-					originalPicture = new File("C://dev/uploadfiles/" + pmapList.get(i).get("STORED_FILE_NAME"));
+					originalPicture2 = new File("C://dev/uploadfiles/" + pmapList.get(i).get("STORED_FILE_NAME"));
 					// 5. 4의 파일을 복사할 폴더(1의 폴더) 파일명을 저장하고 있는 객체
-					copyPicture = new File(photoPath + "/" + pmapList.get(i).get("STORED_FILE_NAME"));
+					copyPicture2= new File(ridePhotoPath + "/" + pmapList.get(i).get("STORED_FILE_NAME"));
 					
 					// 6. 4의 파일을 5의 폴더로 복사
-					FileUtils.copyFile(originalPicture, copyPicture);
+					FileUtils.copyFile(originalPicture2, copyPicture2);
 				}
 //		
 		

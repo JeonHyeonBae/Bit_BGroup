@@ -16,7 +16,7 @@
 			<col width = "10%"/>
 			<col width = "10%"/>
 			<col width = "20%"/>
-			<col width =  "25%"/>
+			<col with =  "25%"/>
 		</colgroup>
 		<thread>
 			<tr>
@@ -27,6 +27,7 @@
 				<th scope = "col">고도
 				<th scope = "col">메모
 				<th scope = "col">경로 저장 파일
+				<th scope = "col">사진
 				
 			</tr>
 		</thread>
@@ -38,7 +39,24 @@
 				<td>${map.RIDE_DISTANCE }</td>
 				<td>${map.RIDE_ELEVATION }</td>
 				<td>${map.RIDE_CONTENT }</td>
-			
+				<c:choose>
+				<c:when test = "${fn:length(MYRIDEPIC)>0}">
+					<c:forEach items = "${MYRIDEPIC}" var = "pic">
+						<tr>
+						<td>
+							<img src="/strava/photo/${pic.STORED_FILE_NAME}" width="200"/>
+						</td>
+						
+						</tr>
+					</c:forEach>
+				</c:when> 
+				<c:otherwise>
+					<tr>
+						<td colspan = "6">조회된 결과가 없습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+				
 				<td>
 					<c:forEach var = "row" items = "${list }">
 						<input type = "hidden" id = "file_idx" value = ${row.RIDE_RECORD_FILE_IDX }>

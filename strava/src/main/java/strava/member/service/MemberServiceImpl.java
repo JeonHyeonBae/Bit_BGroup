@@ -10,7 +10,7 @@ import strava.member.dao.MemberDAO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
-
+	
 	@Resource(name="memberDAO")
 	private MemberDAO memberDAO;
 
@@ -31,11 +31,7 @@ public class MemberServiceImpl implements MemberService {
 		return (Map<String, Object>) memberDAO.selectMyPic(map);
 	}
 
-	@Override
-	public List<Map<String, Object>> selectMyRidePic(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return memberDAO.selectMyRidePic(map);
-	}
+	
 	
 	@Override
 	public Map<String, Object> selectFriendDetail(Map<String, Object> map) throws Exception {

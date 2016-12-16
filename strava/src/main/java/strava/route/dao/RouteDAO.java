@@ -46,11 +46,24 @@ public class RouteDAO extends AbstractDAO{
 		return (List<Map<String,Object>>)selectList("route.selectFileList",map);
 	}
 
-	public void insertFile2(Map<String, Object> map) {
-		insert("route.insertFile2",map);
+	public void insertPic(Map<String, Object> map) {
+		insert("route.insertPic",map);
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectMyRidePic(Map<String, Object> map) {
+		
+		return (List<Map<String,Object>>)selectList("route.selectRidePicList",map);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectMyRidePicOther(Map<String, Object> map) {
+		
+		return (List<Map<String,Object>>)selectList("route.selectRidePicListOther",map);
+	}
+
+	
 
 
 	

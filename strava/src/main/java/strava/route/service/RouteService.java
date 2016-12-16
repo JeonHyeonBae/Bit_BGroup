@@ -15,9 +15,14 @@ public interface RouteService {
 
 	Map<String, Object> openRouteDetail(Map<String, Object> map) throws Exception;
 
-	void updateMyRoute(Map<String, Object> map) throws Exception;
+	void updateMyRoute(Map<String, Object> map, HttpServletRequest request) throws Exception;
 
 	void deleteMyRoute(Map<String, Object> map) throws Exception;
+
+	List<Map<String, Object>> selectMyRidePic(Map<String, Object> map) throws Exception;
+
+	List<Map<String, Object>> selectMyRidePicOther(Map<String, Object> map);
+
 
 	
 

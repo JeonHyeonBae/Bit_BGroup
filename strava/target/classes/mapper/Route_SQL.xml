@@ -20,7 +20,7 @@
 			to_char(ride_date, 'YYYY-MM-DD') as ride_date,
 			ride_duration, ride_distance, ride_elevation
 		from ride_record
-		where member_idx = 61
+		where member_idx = #{MEMBER_IDX}
 		order by ride_idx desc
 	  ]]>
 	</select>
@@ -29,6 +29,7 @@
 		<selectKey keyProperty="RIDE_IDX" resultType="String" order="BEFORE">
 			select seq_ride_record_idx.nextval from dual
 		</selectKey>
+		
 		<![CDATA[
 			insert into ride_record	(
 				ride_idx,
@@ -41,7 +42,7 @@
 				#{RIDE_TITLE},
 				#{RIDE_CONTENT},
 				to_char(sysdate, 'YYYY-MM-DD'),
-				61
+				#{MEMBER_IDX}
 			)
 				
 		]]>
@@ -81,7 +82,10 @@
 		]]>
 	</delete>
 	
-	<insert id="insertFile" parameterType = "HashMap">
+	<insert id="insertFile" parameterType = "HashMap" useGeneratedKeys="true" keyProperty="RIDE_RECORD_FILE_IDX">
+	<selectKey keyProperty="RIDE_RECORD_FILE_IDX" resultType="String" order="BEFORE">
+			select seq_ride_record_file_idx.nextval from dual
+		</selectKey>
 		<![CDATA[
 			insert into ride_record_file
 			(
@@ -91,20 +95,74 @@
 				stored_file_name,
 				file_size,
 				file_date,
+				RIDE_INX,
 				member_idx
 			)
 			values
 			(
-				seq_ride_record_file_idx.nextval,
+				#{RIDE_RECORD_FILE_IDX}
 				#{RIDE_IDX},
 				#{ORIGINAL_FILE_NAME},
 				#{STORED_FILE_NAME},
 				#{FILE_SIZE},
 				to_char(sysdate, 'YYYY-MM-DD'),
-				61
+				#{RIDE_IDX},
+				#{MEMBER_IDX}
 			)
 		]]>	
 	</insert>
+	
+	
+	<insert id="insertPic" parameterType="hashmap" useGeneratedKeys="true" keyProperty="RIDE_PIC_IDX">
+	<selectKey keyProperty="RIDE_PIC_IDX" resultType="String" order="BEFORE">
+			SELECT SEQ_RIDE_PIC_FILE_IDX.NEXTVAL FROM DUAL
+	</selectKey>
+    <![CDATA[
+        INSERT INTO RIDE_PIC_FILE
+        (
+            RIDE_PIC_IDX,
+            ORIGINAL_FILE_NAME,
+            STORED_FILE_NAME,
+            FILE_SIZE,
+            FILE_DATE,
+          	RIDE_IDX,
+          	MEMBER_IDX
+           
+        )
+        VALUES
+        (
+            #{RIDE_PIC_IDX},
+            #{ORIGINAL_FILE_NAME},
+            #{STORED_FILE_NAME},
+            #{FILE_SIZE},
+            to_char(sysdate, 'YYYY-MM-DD'),
+           	#{RIDE_IDX},
+           	#{MEMBER_IDX}
+        )
+    ]]>
+	</insert>
+	
+	
+	<select id="selectRidePicList" resultType="HashMap" parameterType="HashMap">
+		<![CDATA[
+			SELECT
+				*
+			FROM RIDE_PIC_FILE
+			WHERE RIDE_IDX=#{RIDE_IDX}
+		
+		]]>
+	</select>
+	
+	<select id="selectRidePicListOther" resultType="HashMap" parameterType="HashMap">
+		<![CDATA[
+			SELECT
+				*
+			FROM RIDE_PIC_FILE
+			WHERE MEMBER_IDX=#{MEMBER_IDX}
+		
+		]]>
+	</select>
+	
 	
 	<select id = "selectFileList" parameterType="HashMap" resultType="HashMap">
 		<![CDATA[
